@@ -1,0 +1,10 @@
+version: "3"
+services:
+    postgres:
+        image: postgres:11.5
+        container_name: postgres_master_api
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: masterapi
+        ports:
+            - 5432:5432
