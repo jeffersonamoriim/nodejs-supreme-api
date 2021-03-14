@@ -1,18 +1,21 @@
 module.exports = {
     up: (queryInterface, Sequelize) =>
-        queryInterface.addColumn("contact", "status", {
+        queryInterface.addColumn("contacts", "status", {
             type: Sequelize.ENUM("ACTIVE", "ARCHIVED"),
-            default: "ACTIVE",
             allowNull: false,
+            defaultValue: "ACTIVE",
         }),
+
     down: (queryInterface) =>
         queryInterface.sequelize.transaction(async (transaction) => {
-            await queryInterface.removeColumn("contact", "status", {
+            await queryInterface.removeColumn("contacts", "status", {
                 transaction,
             });
             await queryInterface.sequelize.query(
-                "DROP TYPE enum_contact_status",
-                transaction
+                "DROP TYPE enum_contacts_status",
+                {
+                    transaction,
+                }
             );
         }),
 };
