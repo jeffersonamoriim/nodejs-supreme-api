@@ -1,4 +1,6 @@
 import Sequelize, { Model } from "sequelize";
+// eslint-disable-next-line import/no-cycle
+import Customer from "./Customer";
 
 class Contact extends Model {
     static init(sequelize) {
@@ -10,6 +12,30 @@ class Contact extends Model {
             },
             {
                 sequelize,
+                name: {
+                    singular: "contact",
+                    plural: "contacts",
+                },
+                scopes: {
+                    withCustomer: {
+                        attributes: {
+                            exclude: [
+                                "customer_id",
+                                "customerId",
+                                "CustomerId",
+                            ],
+                        },
+                        include: {
+                            model: Customer,
+                            required: true,
+                        },
+                    },
+                    default: {
+                        attributes: {
+                            exclude: ["customerId", "customer_id"],
+                        },
+                    },
+                },
             }
         );
     }
