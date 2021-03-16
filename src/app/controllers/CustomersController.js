@@ -19,7 +19,7 @@ class CustomersController {
         const page = req.query.page || 1;
         const limit = req.query.limit || 25;
 
-        let where = { customer_id: req.params.customerId };
+        let where = {};
         let order = [];
 
         if (name) {
@@ -91,7 +91,7 @@ class CustomersController {
             order = sort.split(",").map((item) => item.split(":"));
         }
 
-        const data = await Customer.scope("withContacts").findAll({
+        const data = await Customer.findAll({
             where,
             order,
             limit,

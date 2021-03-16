@@ -2,8 +2,16 @@ import { Router } from "express";
 import customers from "./app/controllers/CustomersController";
 import contacts from "./app/controllers/ContactsController";
 import users from "./app/controllers/UsersController";
+import sessions from "./app/controllers/SessionsController";
+import auth from "./app/middlewares/auth";
 
 const routes = Router();
+
+// Sessions
+routes.post("/sessions", sessions.create);
+
+// Auth Middleware
+routes.use(auth);
 
 // Customers
 routes.get("/customers", customers.index);
