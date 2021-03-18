@@ -23,7 +23,7 @@ class Customer extends Model {
                             exclude: ["customer_id", "customerId"],
                         },
                         include: {
-                            model: Contact,
+                            model: [Contact],
                             required: false,
                         },
                     },

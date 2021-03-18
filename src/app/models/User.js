@@ -1,5 +1,7 @@
 import Sequelize, { Model } from "sequelize";
 import bcrypt from "bcryptjs";
+// eslint-disable-next-line import/no-cycle
+import File from "./File";
 
 class User extends Model {
     static init(sequelize) {
@@ -15,9 +17,17 @@ class User extends Model {
                 scopes: {
                     default: {
                         attributes: {
-                            exclude: ["password_hash"],
+                            exclude: ["password_hash", "fileId", "file_id"],
+                        },
+                        include: {
+                            model: File,
+                            required: false,
                         },
                     },
+                },
+                name: {
+                    singular: "user",
+                    plural: "users",
                 },
             }
         );
@@ -26,6 +36,10 @@ class User extends Model {
                 user.password_hash = await bcrypt.hash(user.password, 8);
             }
         });
+    }
+
+    static associate(models) {
+        this.belongsTo(models.File, { foreignKey: "file_id" });
     }
 
     checkPassword(password) {
