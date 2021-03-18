@@ -1,6 +1,7 @@
 import { parseISO } from "date-fns";
 import { Op } from "sequelize";
 import * as Yup from "yup";
+import Mail from "../../lib/Mail";
 import User from "../models/User";
 
 class UsersController {
@@ -119,6 +120,13 @@ class UsersController {
 
         const { id, name, email, createdAt, updatedAt } = await User.create(
             req.body
+        );
+
+        Mail.send(
+            email,
+            "Welcome to SupremeAPI",
+            `Hello ${name}! We hope you enjoy all our content`,
+            `<b>Hello ${name}! We hope you enjoy all our content</b>`
         );
 
         return res.status(201).json({ id, name, email, createdAt, updatedAt });
