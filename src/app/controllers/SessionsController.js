@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import "dotenv/config";
 
 class SessionsController {
     async create(req, res) {

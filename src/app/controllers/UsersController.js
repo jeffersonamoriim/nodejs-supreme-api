@@ -1,8 +1,10 @@
 import { parseISO } from "date-fns";
 import { Op } from "sequelize";
 import * as Yup from "yup";
-import Mail from "../../lib/Mail";
 import User from "../models/User";
+
+import Queue from "../../lib/Queue";
+import WellcomeEmailJob from "../jobs/WellcomeEmailJob";
 
 class UsersController {
     async index(req, res) {
@@ -122,12 +124,7 @@ class UsersController {
             req.body
         );
 
-        Mail.send(
-            email,
-            "Welcome to SupremeAPI",
-            `Hello ${name}! We hope you enjoy all our content`,
-            `<b>Hello ${name}! We hope you enjoy all our content</b>`
-        );
+        await Queue.add(WellcomeEmailJob.key, { email, name });
 
         return res.status(201).json({ id, name, email, createdAt, updatedAt });
     }
