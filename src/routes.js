@@ -12,6 +12,7 @@ const routes = Router();
 const upload = multer(multerConfig);
 
 // Sessions
+routes.post("/users", users.create);
 routes.post("/sessions", sessions.create);
 
 // Auth Middleware
@@ -31,10 +32,9 @@ routes.post("/customers/:customerId/contacts", contacts.create);
 routes.put("/customers/:customerId/contacts/:id", contacts.update);
 routes.delete("/customers/:customerId/contacts/:id", contacts.destroy);
 
-// Customers
+// Users
 routes.get("/users", users.index);
 routes.get("/users/:id", users.show);
-routes.post("/users", users.create);
 routes.put("/users/:id", users.update);
 routes.delete("/users/:id", users.destroy);
 
