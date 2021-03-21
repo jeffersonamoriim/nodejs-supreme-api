@@ -13,11 +13,11 @@
 ## Features
 
 ✅  Eslint, Prettier, EditorConfig<br>
-✅   ORM Sequelize<br>
-✅   Auth Middleware with JWT<br>
+✅  ORM Sequelize<br>
+✅  Auth Middleware with JWT<br>
 ✅  File Upload <br>
-✅   Nodemailer<br>
-✅   Queues with Redis<br>
+✅  Nodemailer<br>
+✅  Queues with Redis<br>
 ✅  Error Monitoring<br>
 ✅  Tests with Jest and Supertest
 
